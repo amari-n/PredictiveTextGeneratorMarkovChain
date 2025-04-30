@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.py,cover
+
+# Environment files (secrets)
+.env
+.env.local
+.env.*.local
+.env.production
+.env.test
+.env.development
+
+# Virtual Environment
+venv/
+env/
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# Local Data (custom rules)
+# Allow .txt files but block databases/backups
+data/*.sqlite
+data/*.db
+data/*.dump
+data/backups/
+# data/              ← DO NOT exclude entire data folder (so .txt files are tracked)
+
+# Logs & Debug
+*.log
+*.log.*
+logs/
+
+# Secrets/Credentials
+*.key
+*.pem
+*.crt
+*.cer
+credentials.json
+secrets.yaml
+secrets.yml
+
+# OS/System Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Build/Deployment
+dist/
+build/
+*.egg-info/

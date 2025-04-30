@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Predictive Text Generator</title>
+</head>
+<body>
+    <header>
+        <h1>Predictive Text Generator using Markov Chains</h1>
+    </header>
+    <div>
+        <textarea class="textInput" id="textBoxInput" placeholder="Type your partial sentence here..." autofocus></textarea>
+        
+        <div id = suggestionSection>
+            <h2>Suggestions:</h2>
+            <div id="suggestions"></div>
+        </div>
+
+        <div class="footer">
+            <p>Model trained using Sherlock Holmes.</p>
+            <p>Created by: Nizar Amari</p>
+            <p>GitHub: <a href="https://github.com/amari-n" target="_blank">https://github.com/amari-n</a></p>
+        </div>
+
+        <script>
+            const textInput = document.getElementById("textBoxInput");
+            const suggestionsDiv = document.getElementById("suggestions");
+
+            async function makePredictions() {
+                const text = textInput.value.trim();
+
+                if (!text) {
+                    suggestionsDiv.innerHTML = '';
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`/predict?text=${encodeURIComponent(text)}`);
+                    const wordSuggestions = await response.json();
+
+                    suggestionsDiv.innerHTML = wordSuggestions.map(word =>
+                        `<button onclick="addWordToTextBox('${word}')">${word}</button>`
+                    ).join("");
+                } catch (error) {
+                    console.error("Unable to provide suggestions due to: ", error)
+                    suggestionsDiv.innerHTML = '<p>Suggestions not available due to error.</p>';
+                }
+            }
+
+            function addWordToTextBox(word) {
+                textInput.value += " " + word;
+                textInput.focus();
+                makePredictions();
+            }
+
+            textInput.addEventListener("input", makePredictions);
+        </script>
+    </div>
+</body>
+</html>
