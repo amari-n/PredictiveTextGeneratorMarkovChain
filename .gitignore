@@ -31,7 +31,6 @@ data/*.sqlite
 data/*.db
 data/*.dump
 data/backups/
-# data/              ← DO NOT exclude entire data folder (so .txt files are tracked)
 
 # Logs & Debug
 *.log
